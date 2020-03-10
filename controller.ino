@@ -11,6 +11,7 @@ void loop() {
   
   switch(state) {
     case IDLE: {
+      // calling the music controller: ON
       if(knock == LOW) { // Someone's at the door!
         state = OPEN;
         break;
@@ -25,6 +26,7 @@ void loop() {
       
     case WAIT: {
       // Checking the reading of the proximity(?) sensor: if the user has left, we'll switch to the CLOSE state.
+      // calling the music controller: OFF
       break;
     }
     
