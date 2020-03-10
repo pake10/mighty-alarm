@@ -7,4 +7,6 @@ void loop() {
   
   // Will we implement the actual alarm functionality?
   // playing the music only in state IDLE?
+  // buzzer and tone-function
+  // music speed/tone increasing with each iteration?
 }
