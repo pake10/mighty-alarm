@@ -10,8 +10,10 @@ void door_control(bool open) {
       delay(5);
     }
   }
+  
+  return true;
 }
 
 void figure_control(bool reveal) {
-  // Reveal the figure!
+  // Reveal the figure! (servo control?)
 }
