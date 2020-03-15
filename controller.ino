@@ -1,4 +1,4 @@
-enum States{IDLE, OPEN, WAIT, CLOSE}
+enum States{IDLE, OPEN, WAIT, CLOSE};
 States state = IDLE;
 
 void loop() {
@@ -14,8 +14,9 @@ void loop() {
       // calling the music controller: ON
       if(knock == LOW) { // Someone's at the door!
         state = OPEN;
-        break;
       }
+      
+      break;
     }
     
     case OPEN: {
