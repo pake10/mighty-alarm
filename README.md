@@ -1,4 +1,4 @@
-# mighty-alarm
+# wakeywakey-machine
 
 Please see our documentation at http://pake10.org.
 
