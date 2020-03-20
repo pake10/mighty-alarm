@@ -69,6 +69,7 @@ void loop() {
 
   switch(state) {
     case IDLE: {
+      led_control(false); // Flash the LEDs.
       door.write(0); // Ensuring the door remains closed when IDLE.
       
       if(analogRead(knockSensor) >= knock_threshold) { // Oooh, someone's at the door!
@@ -80,6 +81,8 @@ void loop() {
     
     case OPEN: {
       music.stopPlayback(); // Stops the current track.
+      led_control(true); // Reset the LEDs.
+	    
       servo_control(true);
       music.play("2.wav");
       music.loop(0);
@@ -113,8 +116,8 @@ void loop() {
 	break;
     }
 	
-	  case DONT_CARE: {
-		  break; // Do nothing!
-	  }
+    case DONT_CARE: {
+    	break; // Do nothing!
+    }
   }
 }
