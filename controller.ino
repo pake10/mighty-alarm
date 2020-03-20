@@ -1,5 +1,40 @@
+#include <SD.h>
+#include <TMRpcm.h>
+#include <SPI.h>
+
+TMRpcm music;
+const int knock_threshold = 100;
+
+const int knock_pin = A0;
+const int sd_pin = 10;
+const int speaker_pin = 9;
+const int trig_pin = 8;
+const int echo_pin = 7; // For the ultrasonic sensor
+int volume = 3;
+
 enum States{IDLE, OPEN, WAIT, CLOSE};
 States state = IDLE;
+
+void setup()
+{
+  Serial.begin(9600);
+	music.speakerPin = speaker_pin;
+  
+  if (!SD.begin(sd_pin)) {  // see if the card is present and can be initialized:
+    Serial.println("Couldn't initialize the SD card.");  
+    return;
+  }
+  
+  door.attach(2);
+  figure.attach(4);
+  pinMode(7, INPUT);
+  pinMode(11, OUTPUT);
+  pinMode(3, OUTPUT);
+  
+  music.setVolume(volume);
+  music.play("1.wav"); // Start playing the first song.
+  music.loop(1);
+}
 
 void loop() {
   knock = digitalRead(knockPin);
@@ -11,8 +46,9 @@ void loop() {
   
   switch(state) {
     case IDLE: {
-      // calling the music controller: ON
-      if(knock == LOW) { // Someone's at the door!
+      door.write(0); // Ensuring the door remains closed when IDLE.
+      
+      if(analogRead(knockSensor) >= knock_threshold) { // Oooh, someone's at the door!
         state = OPEN;
       }
       
@@ -20,25 +56,32 @@ void loop() {
     }
     
     case OPEN: {
-      // calling the servo controller
-      // setting the state to WAIT when ready
+      music.stopPlayback(); // Stops the current track.
+      servo_control(true);
+      music.play("2.wav");
+      music.loop(0);
+      
+      state = WAIT;
       break;
     }
       
     case WAIT: {
-      // Checking the reading of the proximity(?) sensor: if the user has left, we'll switch to the CLOSE state.
-      // calling the music controller: OFF
+      if (check_distance()) {
+        state = CLOSE;
+        delay(1000);
+      }
+      
       break;
     }
     
     case CLOSE: {
-      // calling the servo controller
-      // setting the state to IDLE when ready
+      servo_control(false);
+      state = IDLE;
+      
+      volume += 2;
+      music.play("1.wav");
+      music.loop(1);
+      // Increasing volume with each iteration?
     }
   }
-      
-  // Will we implement the actual alarm functionality?
-  // playing the music only in state IDLE?
-  // buzzer and tone-function
-  // music speed/tone increasing with each iteration?
 }
