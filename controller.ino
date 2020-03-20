@@ -10,9 +10,13 @@ const int sd_pin = 10;
 const int speaker_pin = 9;
 const int trig_pin = 8;
 const int echo_pin = 7; // For the ultrasonic sensor
+const int door_pin = 6;
+const int figure_pin = 5;
+const int leds[6] = {2, 3, 4, 15, 16, 17}; // Analog pins are used for three LEDs.
+	
 int volume = 3;
 
-enum States{IDLE, OPEN, WAIT, CLOSE};
+enum States{IDLE, OPEN, WAIT, CLOSE, DONT_CARE};
 States state = IDLE;
 
 void setup()
@@ -32,7 +36,7 @@ void setup()
   pinMode(3, OUTPUT);
   
   music.setVolume(volume);
-  music.play("1.wav"); // Start playing the first song.
+  music.play("1.wav"); // Start playing the song.
   music.loop(1);
 }
 
@@ -78,10 +82,20 @@ void loop() {
       servo_control(false);
       state = IDLE;
       
-      volume += 2;
-      music.play("1.wav");
-      music.loop(1);
-      // Increasing volume with each iteration?
+      if (volume == 7) {
+	state = DONT_CARE;
+      } else {
+      	volume += 2; // Increase the volume by 2 each iteration; when the maximum (7) has been reached, stop.
+	music.setVolume(volume);
+      	music.play("1.wav");
+        music.loop(1);
+      }
+	
+	break;
     }
+	
+	  case DONT_CARE: {
+		  break; // Do nothing!
+	  }
   }
 }
