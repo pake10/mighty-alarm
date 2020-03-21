@@ -70,7 +70,7 @@ void loop() {
       led_control(false); // Flash the LEDs.
       door.write(0); // Ensuring the door remains closed when IDLE.
       
-      if(analogRead(knock_pin) => knock_threshold) { // Oooh, someone's at the door!
+      if(analogRead(knock_pin) >= knock_threshold) { // Oooh, someone's at the door!
         state = OPEN;
       }
       
