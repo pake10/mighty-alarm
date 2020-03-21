@@ -1,4 +1,6 @@
 void servo_control(bool open) {
+  int angle = 0;
+  
   if(open) {
     for(angle = 0; angle =< 90; angle += 1) { // Open the door!
       door.write(angle);
