@@ -2,7 +2,7 @@ void led_control(bool reset) {
   randomSeed(analogRead(A5)); // Seeding the random generator from an unused pin.
   int led_state = 0;
   
-  for(i = 0; i =< 5; i++) {
+  for(int i = 0; i <= 5; i++) {
     if (reset) {
       digitalWrite(leds[i], LOW);
     } else {
