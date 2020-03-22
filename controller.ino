@@ -59,6 +59,10 @@ void setup()
   door.attach(door_pin);
   figure.attach(figure_pin);
   
+  for (int i = 0; i <= 5; i++) {
+	  pinMode(leds[i], OUTPUT);
+  }
+	
   music.setVolume(volume);
   music.play("1.wav"); // Start playing the song.
   music.loop(1);
