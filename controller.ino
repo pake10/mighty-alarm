@@ -68,7 +68,8 @@ void loop() {
   switch(state) {
     case IDLE: {
       led_control(false); // Flash the LEDs.
-      door.write(0); // Ensuring the door remains closed when IDLE.
+      door.write(0);
+      figure.write(0); // Ensuring the door remains closed and the figure inside when IDLE.
       
       if(analogRead(knock_pin) >= knock_threshold) { // Oooh, someone's at the door!
         state = OPEN;
