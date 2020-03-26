@@ -59,6 +59,9 @@ void setup()
   door.attach(door_pin);
   figure.attach(figure_pin);
   
+  door.write(0);
+  figure.write(0);
+
   for (int i = 0; i <= 5; i++) {
 	  pinMode(leds[i], OUTPUT);
   }
