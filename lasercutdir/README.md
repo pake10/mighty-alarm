@@ -9,3 +9,8 @@ Mostly lasercutting and additional vector engraving for roof textures
 size: 457 x 305 mm, to be worked on Epilog mini <br>
 Material: Acrylic <br>
 Lasercutting windows for the project
+
+<h2>testrun.pdf</h2>
+size: 457 x 305 mm, to be worked on Epilog mini <br>
+Material: Plywood <br>
+Lasercutting testrun to check the fit and usability of gears. Also check the quality of vector engraved roof texture.
