@@ -3,9 +3,9 @@
 #include <SPI.h>
 #include <Servo.h>
 
-TMRpcm music;
-const int knock_threshold = 100;
-const float distance_threshold = 50.0f;
+TMRpcm music; // Initializing the object.
+const int knock_threshold = 100; // The threshold for knock detection; can't be experimentally determined without having an access to the Arduino.
+const float distance_threshold = 50.0f; // Distance threshold for the ultrasonic sensor: when has the user left? Currently set at 50 cm.
 
 const int knock_pin = A0;
 const int sd_pin = 10;
@@ -24,7 +24,7 @@ int volume = 3;
 enum States{IDLE, OPEN, WAIT, CLOSE, DONT_CARE};
 States state = IDLE;
 
-bool check_distance() {
+bool check_distance() { // Measures the time taken to receive the ultrasonic sensor's pulse and calculates the distance; returns true if the distance exceeds the threshold.
   long duration, cm;
 	
   pinMode(trig_pin, OUTPUT);
@@ -51,7 +51,7 @@ void setup()
   Serial.begin(9600);
   music.speakerPin = speaker_pin;
   
-  if (!SD.begin(sd_pin)) {  // see if the card is present and can be initialized:
+  if (!SD.begin(sd_pin)) {  // Checking if the card is present and can be initialized; exit if not.
     Serial.println("Couldn't initialize the SD card.");  
     return;
   }
@@ -63,7 +63,7 @@ void setup()
   figure.write(0);
 
   for (int i = 0; i <= 5; i++) {
-	  pinMode(leds[i], OUTPUT);
+	  pinMode(leds[i], OUTPUT); // Initializing all the 6 LEDs.
   }
 	
   music.setVolume(volume);
@@ -90,7 +90,7 @@ void loop() {
       led_control(true); // Reset the LEDs.
 	    
       servo_control(true);
-      music.play("2.wav");
+      music.play("2.wav"); // Let the figure "speak" after it has been revealed.
       music.loop(0);
       
       state = WAIT;
@@ -98,7 +98,7 @@ void loop() {
     }
       
     case WAIT: {
-      if (check_distance()) {
+      if (check_distance()) { // If the user has left, switch to state CLOSE.
         state = CLOSE;
         delay(1000);
       }
