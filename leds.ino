@@ -22,5 +22,5 @@ void led_control(bool reset) {
     }
   }
   
-  delay(random(50, 300)); // A random delay to boot; some added excitement!
+  delay(50);
 }
