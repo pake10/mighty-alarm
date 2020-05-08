@@ -8,3 +8,5 @@ The only way to silence this clock is to knock on its door. However, there is a 
 Sound files:
 * 1.wav: by Flick3r (https://freesound.org/people/Flick3r/)
 * 2.wav: from PacDV (https://www.pacdv.com/sounds/voices-5.html), edited by the creators
+
+[The 3D prototype](https://raw.githubusercontent.com/pake10/wakeywakey-machine/master/prototype.png)
